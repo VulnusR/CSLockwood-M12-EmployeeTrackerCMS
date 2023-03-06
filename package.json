@@ -1,0 +1,25 @@
+{
+  "name": "cslockwood-m12-employeetrackercms",
+  "version": "1.0.0",
+  "description": "The Module 10 challenge as part of the UCLA full stack coding bootcamp. A Content Management System employee tracker.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VulnusR/CSLockwood-M12-EmployeeTrackerCMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VulnusR/CSLockwood-M12-EmployeeTrackerCMS/issues"
+  },
+  "homepage": "https://github.com/VulnusR/CSLockwood-M12-EmployeeTrackerCMS#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.2.0"
+  }
+}
