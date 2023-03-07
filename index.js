@@ -29,6 +29,7 @@ const startProgram = () => {
             "Add Role",
             "Add Employee",
             "Update Eployee Role",
+            "Delete",
             "Quit"
         ]
     })
@@ -62,6 +63,9 @@ const startProgram = () => {
             break;
           case "Update Employee Role/Manager":
             updateEmployee("employees")
+            break;
+          case "Delete":
+            deleteRow();
             break;
           case "Quit":
             connection.end();
@@ -284,6 +288,23 @@ const deleteRow = () => {
         message: "Select a class you want to delete from:",
         choices: ["departments", "roles", "employees"],
     })
+
+    .then((answer) => {
+        inquirer.prompt({
+            name: "id",
+            type: "input",
+            message: `Enter the ID of the ${answer.table} to delete:`,
+        })
+
+        .then((answer2) => {
+            const query = `DELETE FROM ${answer.table} WHERE id = ?`;
+            connection.query(query, [answer2.id], (err, res) => {
+                if (err) throw err;
+                console.log(`${res.affectedRows} ${answer.table} deleted!\n`);
+                startProgram();
+            });
+        });
+    });
 }
 
 
