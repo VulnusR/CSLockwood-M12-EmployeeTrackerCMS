@@ -43,7 +43,7 @@ const startProgram = () => {
             viewAll("employees");
             break;
           case "Add Department":
-            add("Departments");
+            add("departments");
             break;
           case "Add Role":
             add("roles");
@@ -65,13 +65,29 @@ const startProgram = () => {
 }
 
 
-//takes table name as argument to run function for selector switch of startProgram
+//takes table name as argument to run function for selector switch of startProgram view department -> view employees
 const viewAll = (table) => {
   const query = `SELECT * FROM ${table}`;
   connection.query(query, (err, results) => {
     if (err) throw err;
     console.table(results);
     startProgram();
+  });
+};
+
+
+//takes table name as argument to run function for selector switch of startProgram add department -> add employee
+const add = (table) => {
+  inquirer.prompt([
+    //prompts for input here
+  ])
+  .then((answer) => {
+    const query = `INSERT INTO ${table} SET ?`;
+    connection.query(query, answer, (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} ${table} added!\n`);
+      startProgram();
+    });
   });
 };
 
