@@ -277,4 +277,13 @@ const viewEmployeesByDepartment = () => {
     });
 };
 
+const deleteRow = () => {
+    inquirer.prompt({
+        name: "table",
+        type: "list",
+        message: "Select a class you want to delete from:",
+        choices: ["departments", "roles", "employees"],
+    })
+}
+
 
