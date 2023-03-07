@@ -84,14 +84,66 @@ const add = (table) => {
     if (table === "departments") {
         prompts = [
            {
-            type: "input",
-            name: "name",
-            message: "Enter department name:",
+                type: "input",
+                name: "name",
+                message: "Enter department name:",
            },
         ];
         // INSERT INTO - specifies which table to insert data into
         //SET ? - SET keyword denotes the values that should be inserted into the data base, while ? serves as place holder for the data.
         insertQuery = "INSERT INTO departments SET ?";
+    }
+
+    else if (table === "roles") {
+        prompts = [
+            {
+                type: "input",
+                name: "title",
+                message: "Enter role title:",
+            },
+
+            {
+                type: "input",
+                name: "salary",
+                message: "Enter role salary:",
+            },
+
+            {
+                type: "input",
+                name: "department_id",
+                message: "Enter department ID:",
+            },
+        ];
+        insertQuery = "INSERT INTO roles SET ?";
+    }
+
+    else if (table === "employees") {
+        prompts = [
+            {
+                type: "input",
+                name: "first_name",
+                message: "Enter employee first name:",
+              },
+
+              {
+                type: "input",
+                name: "last_name",
+                message: "Enter employee last name:",
+              },
+
+              {
+                type: "input",
+                name: "role_id",
+                message: "Enter role ID:",
+              },
+
+              {
+                type: "input",
+                name: "manager_id",
+                message: "Enter manager ID:",
+              },
+        ];
+        insertQuery = "INSERT INTO employees SET ?";
     }
   
 
