@@ -78,9 +78,27 @@ const viewAll = (table) => {
 
 //takes table name as argument to run function for selector switch of startProgram add department -> add employee
 const add = (table) => {
-  inquirer.prompt([
-    //prompts for input here
-  ])
+    let prompts = [];
+    let insertQuery;
+
+    if (table === "departments") {
+        prompts = [
+           {
+            type: "input",
+            name: "name",
+            message: "Enter department name:",
+           },
+        ];
+        // INSERT INTO - specifies which table to insert data into
+        //SET ? - SET keyword denotes the values that should be inserted into the data base, while ? serves as place holder for the data.
+        insertQuery = "INSERT INTO departments SET ?";
+    }
+  
+
+
+
+
+
   .then((answer) => {
     const query = `INSERT INTO ${table} SET ?`;
     connection.query(query, answer, (err, res) => {
