@@ -242,8 +242,18 @@ const viewEmployeesByManager = () => {
 };
 
 const viewEmployeesByDepartment = () => {
-    
-    //query Const goes here
+    const query = ` 
+        SELECT d.name AS department, 
+        CONCAT(e.first_name, ' ', e.last_name) AS name, 
+        r.title, 
+        r.salary, 
+        CONCAT(m.first_name, ' ', m.last_name) AS manager
+        FROM employees e
+        JOIN roles r ON e.roles_id = r.id
+        JOIN departments d ON r.department_id = d.id
+        LEFT JOIN employees m ON e.manager_id = m.id
+        ORDER BY department
+    `;
 
     connection.query(query, (err, results) => {
         if (err) throw err;
