@@ -171,13 +171,39 @@ const updateEmployee = () => {
           message: "Would you like to update the employee's manager?",
         },
         {
-          name: "employeeId",
+          name: "employees_Id",
           type: "input",
           message: "Enter the ID of the employee you want to update:",
         },
-      ])
+    ])
 
-      
+    .then((answers) => {
+        if (answers.updateRole) {
+            // Prompt for new role ID and update employee's role
+            inquirer.prompt([
+                {
+                    name: "roles_Id",
+                    type: "input",
+                    message: "Enter the ID of the new role:",
+                },
+            ])
+          
+            .then((answer) => {
+                const query = `UPDATE employees SET roles_id = ? WHERE id = ?`;
+                connection.query(query, [answer.roleId, answers.employeeId], (err, res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} employee updated!\n`);
+                    startProgram();
+                });
+            });
+        }
+    });
+
+    
+
+
+
+
 }
 
     
