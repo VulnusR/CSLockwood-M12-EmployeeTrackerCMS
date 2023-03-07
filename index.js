@@ -147,7 +147,7 @@ const add = (table) => {
     }
   
     //adds new row to table in DB from input.
-    imquirer.prompt(prompts).then((answer) => {
+    inquirer.prompt(prompts).then((answer) => {
         connection.query(insertQuery, answer, (err, res) => {
             if (err) throw err;
             console.log(`${res.affectedRows} ${table} added!\n`);
