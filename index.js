@@ -34,25 +34,25 @@ const startProgram = () => {
     .then((answer) => {
         switch (answer['start-menu']) {
           case "View Deparments":
-            viewAll("department")
+            viewAll("departments")
             break;
           case "View Roles":
-            viewAll("role");
+            viewAll("roles");
             break;
           case "View Employees":
-            viewAll("employee");
+            viewAll("employees");
             break;
           case "Add Department":
-            add("Department");
+            add("Departments");
             break;
           case "Add Role":
-            add("role");
+            add("roles");
             break;
           case "Add Employee":
-            add("employee");
+            add("employees");
             break;
           case "Update Employee Role":
-            updateEmployee("role")
+            updateEmployee("roles")
             break;
           case "Quit":
             connection.end();
