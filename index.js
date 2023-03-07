@@ -110,7 +110,7 @@ const add = (table) => {
 
             {
                 type: "input",
-                name: "department_id",
+                name: "departments_id",
                 message: "Enter department ID:",
             },
         ];
@@ -133,7 +133,7 @@ const add = (table) => {
 
               {
                 type: "input",
-                name: "role_id",
+                name: "roles_id",
                 message: "Enter role ID:",
               },
 
@@ -146,19 +146,14 @@ const add = (table) => {
         insertQuery = "INSERT INTO employees SET ?";
     }
   
-
-
-
-
-
-  .then((answer) => {
-    const query = `INSERT INTO ${table} SET ?`;
-    connection.query(query, answer, (err, res) => {
-      if (err) throw err;
-      console.log(`${res.affectedRows} ${table} added!\n`);
-      startProgram();
+    //adds new row to table in DB from input.
+    imquirer.prompt(prompts).then((answer) => {
+        connection.query(insertQuery, answer, (err, res) => {
+            if (err) throw err;
+            console.log(`${res.affectedRows} ${table} added!\n`);
+            startProgram();
+        });
     });
-  });
 };
 
 
