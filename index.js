@@ -23,6 +23,8 @@ const startProgram = () => {
             "View Deparments",
             "View Roles",
             "View Employees",
+            "View Employees by Department",
+            "View Employees by Manager",
             "Add Department",
             "Add Role",
             "Add Employee",
@@ -42,6 +44,12 @@ const startProgram = () => {
             break;
           case "View Employees":
             viewAll("employees");
+            break;
+          case "View Employees by Department":
+            viewEmployeesByDepartment();
+            break;
+          case "View Employees by Manager":
+            viewEmployeesByManager();
             break;
           case "Add Department":
             add("departments");
@@ -221,3 +229,28 @@ const updateEmployee = () => {
         }
     });
 }
+
+const viewEmployeesByManager = () => {
+    //query constant goes here
+
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+
+        console.table(results);
+        startProgram();
+    });
+};
+
+const viewEmployeesByDepartment = () => {
+    
+    //query Const goes here
+
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+
+        console.table(results);
+        startProgram();
+    });
+};
+
+
