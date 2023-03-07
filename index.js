@@ -79,7 +79,7 @@ const viewAll = (table) => {
   const query = `SELECT * FROM ${table}`;
   connection.query(query, (err, results) => {
     if (err) throw err;
-    console.table(results);
+    console.log(cTable.getTable(results));
     startProgram();
   });
 };
@@ -250,7 +250,7 @@ const viewEmployeesByManager = () => {
     connection.query(query, (err, results) => {
         if (err) throw err;
 
-        console.table(results);
+        console.log(cTable.getTable(results));
         startProgram();
     });
 };
@@ -272,7 +272,7 @@ const viewEmployeesByDepartment = () => {
     connection.query(query, (err, results) => {
         if (err) throw err;
 
-        console.table(results);
+        console.log(cTable.getTable(results));
         startProgram();
     });
 };
