@@ -52,7 +52,7 @@ const startProgram = () => {
           case "Add Employee":
             add("employees");
             break;
-          case "Update Employee Role":
+          case "Update Employee Role/Manager":
             updateEmployee("employees")
             break;
           case "Quit":
@@ -157,7 +157,9 @@ const add = (table) => {
     });
 };
 
-//
+
+
+//Allows users to select if they want to update and/or manager
 const updateEmployee = () => {
     inquirer.prompt([
         {
@@ -182,7 +184,7 @@ const updateEmployee = () => {
             // Prompt for new role ID and update employee's role
             inquirer.prompt([
                 {
-                    name: "roles_Id",
+                    name: "roles_id",
                     type: "input",
                     message: "Enter the ID of the new role:",
                 },
@@ -190,7 +192,27 @@ const updateEmployee = () => {
           
             .then((answer) => {
                 const query = `UPDATE employees SET roles_id = ? WHERE id = ?`;
-                connection.query(query, [answer.roleId, answers.employeeId], (err, res) => {
+                connection.query(query, [answer.roles_id, answers.employees_id], (err, res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} employee updated!\n`);
+                    startProgram();
+                });
+            });
+        }
+        
+        if (answers.updateManager) {
+            // Prompt for new manager ID and update employee's manager
+            inquirer.prompt([
+                {
+                    name: "manager_id",
+                    type: "input",
+                    message: "Enter the ID of the new manager:",
+                },
+            ])
+            
+            .then((answer) => {
+                const query = `UPDATE employees SET manager_id = ? WHERE id = ?`;
+                connection.query(query, [answer.manager_id, answers.employees_id], (err, res) => {
                     if (err) throw err;
                     console.log(`${res.affectedRows} employee updated!\n`);
                     startProgram();
@@ -198,14 +220,4 @@ const updateEmployee = () => {
             });
         }
     });
-
-    
-
-
-
-
 }
-
-    
-
-
