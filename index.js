@@ -159,36 +159,27 @@ const add = (table) => {
 
 //
 const updateEmployee = () => {
-    const query = `SELECT employees.id, employees.first_name, employees.last_name, roles.title FROM employees INNER JOIN roles ON employees.roles_id = roles.id`;
+    inquirer.prompt([
+        {
+          type: "confirm",
+          name: "updateRole",
+          message: "Would you like to update the employee's role?",
+        },
+        {
+          type: "confirm",
+          name: "updateManager",
+          message: "Would you like to update the employee's manager?",
+        },
+        {
+          name: "employeeId",
+          type: "input",
+          message: "Enter the ID of the employee you want to update:",
+        },
+      ])
+
+      
+}
+
     
-    connection.query(query, (err, results) => {
-        if (err) throw err;
-  
-        console.table(results);
-  
-        inquirer.prompt([
-            {
-                name: "employees_Id",
-                type: "input",
-                message: "Enter the ID of the employee you want to update:",
-            },
-
-            {
-                name: "roles_Id",
-                type: "input",
-                message: "Enter the ID of the new role:",
-            },
-        ])
-
-        .then((answer) => {
-            const query = `UPDATE employees SET roles_id = ? WHERE id = ?`;
-            connection.query(query, [answer.roleId, answer.employeeId], (err, res) => {
-                if (err) throw err;
-                console.log(`${res.affectedRows} employee updated!\n`);
-                startProgram();
-            });
-        });
-    });
-};
 
 
