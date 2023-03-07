@@ -65,3 +65,14 @@ const startProgram = () => {
 }
 
 
+//takes table name as argument to run function for selector switch of startProgram
+const viewAll = (table) => {
+  const query = `SELECT * FROM ${table}`;
+  connection.query(query, (err, results) => {
+    if (err) throw err;
+    console.table(results);
+    startProgram();
+  });
+};
+
+
