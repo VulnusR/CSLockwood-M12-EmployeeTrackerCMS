@@ -8,9 +8,13 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'employee_tracker',
-    port: 3306
+    database: 'employee_tracker'
+    
 });
+
+connection.connect(function (err) {
+    if (err) throw err;
+  });
 
 
 // Start Program Function to return various options
