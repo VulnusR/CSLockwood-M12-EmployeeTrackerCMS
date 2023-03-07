@@ -231,7 +231,21 @@ const updateEmployee = () => {
 }
 
 const viewEmployeesByManager = () => {
-    //query constant goes here
+    const query = `
+        SELECT CONCAT(m.first_name, ' ', m.last_name) AS manager, 
+        e.id, 
+        CONCAT(e.first_name, ' ', e.last_name) AS name, 
+        r.title, 
+        d.name AS department, 
+        r.salary, 
+        CONCAT(m2.first_name, ' ', m2.last_name) AS reports_to
+        FROM employees e
+        JOIN roles r ON e.roles_id = r.id
+        JOIN departments d ON r.department_id = d.id
+        JOIN employees m ON e.manager_id = m.id
+        LEFT JOIN employees m2 ON e.manager_id = m2.id
+        ORDER BY manager
+    `;
 
     connection.query(query, (err, results) => {
         if (err) throw err;
