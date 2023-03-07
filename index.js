@@ -167,13 +167,13 @@ const updateEmployee = () => {
   
         inquirer.prompt([
             {
-                name: "employeeId",
+                name: "employees_Id",
                 type: "input",
                 message: "Enter the ID of the employee you want to update:",
             },
 
             {
-                name: "roleId",
+                name: "roles_Id",
                 type: "input",
                 message: "Enter the ID of the new role:",
             },
