@@ -29,6 +29,39 @@ const startProgram = () => {
             "Quit"
         ]
     })
+
+    //selector switch
+    .then((answer) => {
+        switch (answer['start-menu']) {
+          case "View Deparments":
+            viewAll("department")
+            break;
+          case "View Roles":
+            viewAll("role");
+            break;
+          case "View Employees":
+            viewAll("employee");
+            break;
+          case "Add Department":
+            add("Department");
+            break;
+          case "Add Role":
+            add("role");
+            break;
+          case "Add Employee":
+            add("employee");
+            break;
+          case "Update Employee Role":
+            updateEmployee("role")
+            break;
+          case "Quit":
+            connection.end();
+            break;
+          default:
+            console.log(`Invalid option: ${answer['start-menu']}`);
+            break;
+        }
+    })
 }
 
 
