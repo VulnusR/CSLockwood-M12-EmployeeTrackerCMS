@@ -7,38 +7,37 @@ const fs = require('fs');
 
 //Establishes MySql DB Connection
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'startMYSQL',
-    database: 'employee_tracker'
-    
+  host: 'localhost',
+  user: 'root',
+  password: 'startMYSQL',
+  database: 'employee_tracker'   
 });
 
 connection.connect(function (err) {
-    if (err) throw err;
-  });
+  if (err) throw err;
+});
 
-
-// Start Program Function to return various options
-const startProgram = () => {
+function graphic() {
   console.log("\n");
-  console.log("\n");
-  console.log("oooooooooooo                              oooo                                                 ooooooooooooo                              oooo                                                                           2023");
+  console.log("                                                                                                                                                                       2023")
+  console.log("___________________________________________________________________________________________________________________________________________________________________________")
+  console.log("oooooooooooo                              oooo                                                 ooooooooooooo                              oooo                           ");
   console.log ("`888'     `8                              `888                                                 8'   888   `8                              `888                           ");
   console.log(" 888         ooo. .oo.  .oo.   oo.ooooo.   888   .ooooo.  oooo    ooo  .ooooo.   .ooooo.            888      oooo d8b  .oooo.    .ooooo.   888  oooo   .ooooo.  oooo d8b ");
   console.log(" 888oooo8    `888P\"Y88bP\"Y88b   888' `88b  888  d88' `88b  `88.  .8'  d88' `88b d88' `88b           888      `888\"\"8P `P  )88b  d88' `\"Y8  888 .8P'   d88' `88b `888\"\"8P ");
   console.log(" 888    \"     888   888   888   888   888  888  888   888   `88..8'   888ooo888 888ooo888           888       888      .oP\"888  888        888888.    888ooo888  888     ");
   console.log(" 888       o  888   888   888   888   888  888  888   888    `888'    888    .o 888    .o           888       888     d8(  888  888   .o8  888 `88b.  888    .o  888     ");
   console.log("o888ooooood8 o888o o888o o888o  888bod8P' o888o `Y8bod8P'     .8'     `Y8bod8P' `Y8bod8P'          o888o     d888b    `Y888\"\"8o `Y8bod8P' o888o o888o `Y8bod8P' d888b    ");
-  console.log("                                888                       .o..P'                                                                                                         ");
+  console.log("________________________________888_______________________.o..P'___________________________________________________________________________________________________________");
   console.log("                               o888o                      `Y8P'                                                                                                          ");
+  console.log("                                                                                                                                                                    VulnusR");
   console.log("\n");
   console.log("\n");
-  console.log("                                                                                                                                                                                                                        VulnusR");
+}
 
 
-
-
+// Start Program Function to return various options
+const startProgram = () => {
     return inquirer.prompt ({
         type: "list",
         name: "start-menu",
@@ -334,5 +333,5 @@ const deleteRow = () => {
     });
 }
 
-
+graphic();
 startProgram();
