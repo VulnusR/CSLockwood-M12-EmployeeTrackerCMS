@@ -14,28 +14,6 @@ const connection = mysql.createConnection({
     
 });
 
-// Read the schema.sql file
-const schema = fs.readFileSync('./db/schema.sql', 'utf8');
-
-// Split the schema string into individual SQL statements
-const schemaStatements = schema.split(';');
-
-
-// Execute each statement in turn
-schemaStatements.forEach((statement) => {
-  connection.query(statement.trim(), (err, results, fields) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    console.log('Database schema has been created!');
-  });
-});
-
-// Close the connection
-
-
 connection.connect(function (err) {
     if (err) throw err;
   });
@@ -56,7 +34,7 @@ const startProgram = () => {
             "Add Department",
             "Add Role",
             "Add Employee",
-            "Update Employee Role",
+            "Update Employee Role/Manager",
             "Delete",
             "Quit"
         ]
@@ -90,7 +68,7 @@ const startProgram = () => {
             add("employees");
             break;
           case "Update Employee Role/Manager":
-            updateEmployee("employees")
+            updateEmployee()
             break;
           case "Delete":
             deleteRow();
@@ -216,7 +194,7 @@ const updateEmployee = () => {
           message: "Would you like to update the employee's manager?",
         },
         {
-          name: "employees_Id",
+          name: "employees_id",
           type: "input",
           message: "Enter the ID of the employee you want to update:",
         },
