@@ -17,18 +17,24 @@ const connection = mysql.createConnection({
 // Read the schema.sql file
 const schema = fs.readFileSync('./db/schema.sql', 'utf8');
 
-// Execute the schema.sql script
-connection.query(schema, (err, results, fields) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+// Split the schema string into individual SQL statements
+const schemaStatements = schema.split(';');
 
-  console.log('Database schema has been created!');
+
+// Execute each statement in turn
+schemaStatements.forEach((statement) => {
+  connection.query(statement.trim(), (err, results, fields) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log('Database schema has been created!');
+  });
 });
 
 // Close the connection
-connection.end();
+
 
 connection.connect(function (err) {
     if (err) throw err;
@@ -50,7 +56,7 @@ const startProgram = () => {
             "Add Department",
             "Add Role",
             "Add Employee",
-            "Update Eployee Role",
+            "Update Employee Role",
             "Delete",
             "Quit"
         ]

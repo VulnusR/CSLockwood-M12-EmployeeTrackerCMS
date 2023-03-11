@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS departments;
+
 /*
 INT(X) -Specifies the length of the ID
 UNSIGNED -Specifies the field should contain only positive integers
