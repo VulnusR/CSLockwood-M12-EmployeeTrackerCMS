@@ -32,7 +32,7 @@ CREATE TABLE employees (
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   roles_id INT,
-  manager_id INT UNSIGNED ZEROFILL NULL,
+  manager_id INT UNSIGNED NULL DEFAULT NULL,
   FOREIGN KEY (roles_id) REFERENCES roles(id),
   FOREIGN KEY (manager_id) REFERENCES employees(id)
 );
