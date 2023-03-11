@@ -1,16 +1,34 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
+const fs = require('fs');
+
 
 
 //Establishes MySql DB Connection
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'startMYSQL',
     database: 'employee_tracker'
     
 });
+
+// Read the schema.sql file
+const schema = fs.readFileSync('./db/schema.sql', 'utf8');
+
+// Execute the schema.sql script
+connection.query(schema, (err, results, fields) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  console.log('Database schema has been created!');
+});
+
+// Close the connection
+connection.end();
 
 connection.connect(function (err) {
     if (err) throw err;
@@ -312,3 +330,4 @@ const deleteRow = () => {
 }
 
 
+startProgram();
