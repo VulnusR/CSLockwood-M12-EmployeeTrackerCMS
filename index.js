@@ -182,66 +182,66 @@ const add = (table) => {
 
 //Allows users to select if they want to update and/or manager
 const updateEmployee = () => {
-    inquirer.prompt([
-        {
-          type: "confirm",
-          name: "updateRole",
-          message: "Would you like to update the employee's role?",
-        },
-        {
-          type: "confirm",
-          name: "updateManager",
-          message: "Would you like to update the employee's manager?",
-        },
-        {
-          name: "employees_id",
-          type: "input",
-          message: "Enter the ID of the employee you want to update:",
-        },
-    ])
-
+  inquirer.prompt([
+    {
+      type: "confirm",
+      name: "updateRole",
+      message: "Would you like to update the employee's role?",
+    },
+    {
+      type: "confirm",
+      name: "updateManager",
+      message: "Would you like to update the employee's manager?",
+    },
+    {
+      name: "employees_id",
+      type: "input",
+      message: "Enter the ID of the employee you want to update:",
+    },
+  ])
     .then((answers) => {
+      if (answers.updateRole || answers.updateManager) {
+        const prompts = [];
         if (answers.updateRole) {
-            // Prompt for new role ID and update employee's role
-            inquirer.prompt([
-                {
-                    name: "roles_id",
-                    type: "input",
-                    message: "Enter the ID of the new role:",
-                },
-            ])
-          
-            .then((answer) => {
-                const query = `UPDATE employees SET roles_id = ? WHERE id = ?`;
-                connection.query(query, [answer.roles_id, answers.employees_id], (err, res) => {
-                    if (err) throw err;
-                    console.log(`${res.affectedRows} employee updated!\n`);
-                    startProgram();
-                });
-            });
+          prompts.push({
+            name: "roles_id",
+            type: "input",
+            message: "Enter the ID of the new role:",
+          });
         }
-        
         if (answers.updateManager) {
-            // Prompt for new manager ID and update employee's manager
-            inquirer.prompt([
-                {
-                    name: "manager_id",
-                    type: "input",
-                    message: "Enter the ID of the new manager:",
-                },
-            ])
-            
-            .then((answer) => {
-                const query = `UPDATE employees SET manager_id = ? WHERE id = ?`;
-                connection.query(query, [answer.manager_id, answers.employees_id], (err, res) => {
-                    if (err) throw err;
-                    console.log(`${res.affectedRows} employee updated!\n`);
-                    startProgram();
-                });
-            });
+          prompts.push({
+            name: "manager_id",
+            type: "input",
+            message: "Enter the ID of the new manager:",
+          });
         }
+        inquirer.prompt(prompts).then((answers2) => {
+          const query = `UPDATE employees SET ${
+            answers.updateRole && answers.updateManager
+              ? "roles_id = " + answers2.roles_id + ", manager_id = " + answers2.manager_id
+              : answers.updateRole
+              ? "roles_id = " + answers2.roles_id
+              : answers.updateManager
+              ? "manager_id = " + answers2.manager_id
+              : ""
+          } WHERE id = ?`;
+          connection.query(
+            query,
+            [answers.employees_id],
+            (err, res) => {
+              if (err) throw err;
+              console.log(`${res.affectedRows} employee updated!\n`);
+              startProgram();
+            }
+          );
+        });
+      } else {
+        console.log("No updates selected.\n");
+        startProgram();
+      }
     });
-}
+};
 
 const viewEmployeesByManager = () => {
     const query = `
