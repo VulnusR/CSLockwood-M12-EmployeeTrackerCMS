@@ -2,8 +2,7 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const fs = require('fs');
-
-
+const schema = fs.readFileSync('./db/schema.sql', 'utf8');
 
 //Establishes MySql DB Connection
 const connection = mysql.createConnection({
@@ -11,6 +10,24 @@ const connection = mysql.createConnection({
   user: 'root',
   password: 'startMYSQL',
   database: 'employee_tracker'   
+});
+
+
+// Split the schema string into individual SQL statements
+const schemaStatements = schema.split(';');
+
+
+// Execute each statement in turn
+schemaStatements.forEach((statement) => {
+  const trimmedStatement = statement.trim();
+  if (trimmedStatement) {
+    connection.query(statement.trim(), (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+  });
+}
 });
 
 connection.connect(function (err) {
